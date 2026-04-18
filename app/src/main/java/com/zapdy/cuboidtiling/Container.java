@@ -7,7 +7,19 @@ public class Container {
     private final int height;
     private final int depth;
     private int[][][] map;
-    private ArrayList<Box> boxes = new ArrayList<Box>();
+    private ArrayList<Box> boxes = new ArrayList<>();
+
+    public int firstEmptyX = 0;
+    public int firstEmptyY = 0;
+    public int firstEmptyZ = 0;
+
+    private Container(int width, int height, int depth, int[][][] map, ArrayList<Box> boxes) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+        this.map = map;
+        this.boxes = boxes;
+    }
 
     public Container(int width, int height, int depth) {
         this.width = width;
@@ -17,20 +29,21 @@ public class Container {
     }
 
     public boolean tryAddBox(Box box) {
-        if (box.x + box.width > width) {
+        if (box.x + box.width > this.width) {
             return false;
         }
-        if (box.y + box.height > height) {
+        if (box.y + box.height > this.height) {
             return false;
         }
-        if (box.z + box.depth > depth) {
+        if (box.z + box.depth > this.depth) {
             return false;
         }
-        for (int i = box.x; i < box.x + box.width; i++) {
-            for (int j = box.y; j < box.y + box.height; j++) {
-                for (int k = box.z; k < box.z + box.depth; k++) {
-                    if (map[i][j][k] == 0) {
-                        map[i][j][k] = 1;
+
+        for (int x = box.x; x < box.x + box.width; x++) {
+            for (int y = box.y; y < box.y + box.height; y++) {
+                for (int z = box.z; z < box.z + box.depth; z++) {
+                    if (map[x][y][z] == 0) {
+                        map[x][y][z] = 1;
                     }
                     else {
                         return false; // collision
@@ -39,6 +52,54 @@ public class Container {
             }
         }
         boxes.add(box);
+        this.findFirstEmptyPosition();
         return true;
+    }
+
+    public void printMap() {
+        for (int k = 0; k < this.depth; k++) {
+            for (int i = 0; i < this.width; i++) {
+                for (int j = 0; j < this.height; j++) {
+                    IO.print(this.map[i][j][k] + " ");
+                }
+                IO.println("");
+            }
+            IO.println("");
+        }
+    }
+
+    public Container copy() {
+        ArrayList<Box> boxesCopy = new ArrayList<>();
+        for (Box box : this.boxes) {
+            boxesCopy.add(box); // i dont need a copy of the box because box its immutable
+        }
+
+        int[][][] mapCopy = new int[this.width][this.height][this.depth];
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                for (int k = 0; k < this.depth; k++) {
+                    mapCopy[i][j][k] = this.map[i][j][k];
+                }
+            }
+        }
+
+        Container containerCopy = new Container(this.width, this.height, this.depth, mapCopy, boxesCopy);
+        return containerCopy;
+    }
+    
+    public void findFirstEmptyPosition() {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                for (int z = 0; z < this.depth; z++) {
+                    if (this. map[x][y][z] == 0) {
+                        this.firstEmptyX = x;
+                        this.firstEmptyY = y;
+                        this.firstEmptyZ = z;
+                        return;
+                    } 
+                }
+            }
+        }
+
     }
 }
