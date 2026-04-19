@@ -2,8 +2,9 @@ package com.zapdy.cuboidtiling;
 
 public class Main {
     public static void main(String[] args) {
-        CuboidTilingSolver solver = new CuboidTilingSolver(2, 2, 2);
+        CuboidTilingSolver solver = new CuboidTilingSolver(1, 1, 2);
         solver.solve();
-        IO.println("counter: " + solver.counter);
+        IO.println("all possible sequences of box placements: " + solver.counter);
+        IO.println("partitions of possible sequences of box placements: " + solver.partitions.size());
     }
 }

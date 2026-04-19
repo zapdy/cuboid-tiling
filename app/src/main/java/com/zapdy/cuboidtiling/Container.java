@@ -1,6 +1,7 @@
 package com.zapdy.cuboidtiling;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Container {
     private final int width;
@@ -122,5 +123,14 @@ public class Container {
             }
         }
         this.isFilled = true;
+    }
+
+    public String[] getPartition() {
+        String[] partition = new String[this.boxes.size()];
+           for (int i = 0; i < this.boxes.size(); i++) {
+               partition[i] = this.boxes.get(i).toString();
+        }
+        Arrays.sort(partition);
+        return partition;
     }
 }

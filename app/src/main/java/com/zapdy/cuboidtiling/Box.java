@@ -1,5 +1,7 @@
 package com.zapdy.cuboidtiling;
 
+import java.util.Arrays;
+
 public class Box {
     public final int width;
     public final int height;
@@ -15,5 +17,12 @@ public class Box {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    @Override
+    public String toString() {
+        int[] sorting = { width, height, depth };
+        Arrays.sort(sorting);
+        return sorting[0] + "x" + sorting[1] + "x" + sorting[2];
     }
 }
