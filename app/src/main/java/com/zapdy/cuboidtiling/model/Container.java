@@ -1,4 +1,4 @@
-package com.zapdy.cuboidtiling;
+package com.zapdy.cuboidtiling.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

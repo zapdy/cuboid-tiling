@@ -1,4 +1,4 @@
-package com.zapdy.cuboidtiling;
+package com.zapdy.cuboidtiling.model;
 
 public record Cube(int width, int height, int depth, int x, int y, int z){
     @Override

@@ -1,9 +1,8 @@
-package com.zapdy.cuboidtiling;
+package com.zapdy.cuboidtiling.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CuboidTilingSolver {
@@ -13,7 +12,7 @@ public class CuboidTilingSolver {
     private Map<String, ArrayList<Cube>> partitions = new HashMap<>();
     public int counter = 0;
 
-    CuboidTilingSolver(int width, int height, int depth) {
+    public CuboidTilingSolver(int width, int height, int depth) {
         this.width = width;
         this.height = height;
         this.depth = depth;
