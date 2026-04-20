@@ -10,7 +10,6 @@ public class Container {
     private short[][][] map;
     private ArrayList<Cube> cubes = new ArrayList<>();
     public boolean isFilled = false;
-
     private int occupiedCells = 0;
     public int firstEmptyX = 0;
     public int firstEmptyY = 0;
@@ -114,5 +113,9 @@ public class Container {
         }
         Arrays.sort(partition);
         return partition;
+    }
+
+    public ArrayList<Cube> getCubes() {
+        return cubes;
     }
 }

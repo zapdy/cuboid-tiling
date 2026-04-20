@@ -1,16 +1,16 @@
 package com.zapdy.cuboidtiling;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public class CuboidTilingSolver {
     private int width;
     private int height;
     private int depth;
-
-    public Set<List<String>> partitions = new HashSet<>();
+    private Map<String, ArrayList<Cube>> partitions = new HashMap<>();
     public int counter = 0;
 
     CuboidTilingSolver(int width, int height, int depth) {
@@ -40,8 +40,11 @@ public class CuboidTilingSolver {
                     container.addCube(cube);
                     if (container.isFilled) {
                         counter++;  
-                        List<String> partition = Arrays.asList(container.getPartition());
-                        partitions.add(partition);
+                        String partition = Arrays.asList(container.getPartition()).toString();
+                        if (!partitions.containsKey(partition)) {
+                            ArrayList<Cube> cubes = new ArrayList<>(container.getCubes());
+                            partitions.put(partition, cubes);
+                        }
                     } 
                     else {
                         solve(container);
@@ -50,5 +53,8 @@ public class CuboidTilingSolver {
                 }
             }
         }
+    }
+    public Map<String, ArrayList<Cube>> getPartitions() {
+        return partitions;
     }
 }
