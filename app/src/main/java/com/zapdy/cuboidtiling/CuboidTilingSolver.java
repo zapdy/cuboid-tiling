@@ -26,28 +26,27 @@ public class CuboidTilingSolver {
     }
 
     private void solve(Container container) {
-        for (int boxWidth = 1; boxWidth <= width; boxWidth++) {
-            for (int boxHeight = 1; boxHeight <= height; boxHeight++) {
-                for (int boxDepth = 1; boxDepth <= depth; boxDepth++) {
-                    // IO.print("Box: " + boxWidth + "x" + boxHeight + "x" + boxDepth + "\n");
+        for (int cubeWidth = 1; cubeWidth <= width; cubeWidth++) {
+            for (int cubeHeight = 1; cubeHeight <= height; cubeHeight++) {
+                for (int cubeDepth = 1; cubeDepth <= depth; cubeDepth++) {
+                    // IO.print("Cube: " + cubeWidth + "x" + cubeHeight + "x" + cubeDepth + "\n");
 
-                    Container containerCopy = container.copy();
-                    Box box = new Box(boxWidth, boxHeight, boxDepth, containerCopy.firstEmptyX, containerCopy.firstEmptyY, containerCopy.firstEmptyZ);
+                    Cube cube = new Cube(cubeWidth, cubeHeight, cubeDepth, container.firstEmptyX, container.firstEmptyY, container.firstEmptyZ);
                     
-                    boolean isAdded = containerCopy.tryAddBox(box);
-                    if (!isAdded) {
+                    if (!container.canFit(cube)) {
                         continue;
                     }
                     
-                    if (containerCopy.isFilled) {
+                    container.addCube(cube);
+                    if (container.isFilled) {
                         counter++;  
-                        // containerCopy.printMap();
-                        List<String> partition = Arrays.asList(containerCopy.getPartition());
+                        List<String> partition = Arrays.asList(container.getPartition());
                         partitions.add(partition);
-                        continue;
+                    } 
+                    else {
+                        solve(container);
                     }
-                    
-                    solve(containerCopy);
+                    container.removeCube(cube);
                 }
             }
         }
