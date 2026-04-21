@@ -1,9 +1,12 @@
 package com.zapdy.cuboidtiling.view;
 
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,18 +25,15 @@ public class Main extends Application {
         } 
     }
     */
-
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Label label = new Label();
-        label.setText("Hello World");
+    public void start(Stage primaryStage) throws IOException {
+        primaryStage.setTitle("Cuboid Tiling Solver");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-view.fxml"));
+        Parent root = loader.load();
 
-        StackPane root = new StackPane();
-        root.getChildren().add(label);
-        primaryStage.setScene(new Scene(root, 300, 250));
-        primaryStage.show();
-    }
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();}
 
     public static void main(String[] args) {
         launch(args);

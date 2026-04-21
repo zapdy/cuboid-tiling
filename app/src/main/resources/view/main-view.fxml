@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="749.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zapdy.cuboidtiling.view.MainController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label text="Width:">
+               <font>
+                  <Font size="19.0" />
+               </font></Label>
+            <TextField fx:id="widthTextField" prefHeight="26.0" prefWidth="90.0" text="2">
+               <font>
+                  <Font size="20.0" />
+               </font></TextField>
+            <Label text="Height:">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <TextField fx:id="heightTextField" prefHeight="26.0" prefWidth="90.0" text="2">
+               <font>
+                  <Font size="20.0" />
+               </font></TextField>
+            <Label text="Depth">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <TextField fx:id="depthTextField" prefHeight="26.0" prefWidth="90.0" text="2">
+               <font>
+                  <Font size="20.0" />
+               </font></TextField>
+            <Button fx:id="runButton" mnemonicParsing="false" text="Run">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <ListView fx:id="partitionListView" prefWidth="200.0" style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

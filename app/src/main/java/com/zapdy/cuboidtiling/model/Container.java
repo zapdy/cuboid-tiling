@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Container {
-    private final int width;
-    private final int height;
-    private final int depth;
+    public final int width;
+    public final int height;
+    public final int depth;
     private short[][][] map;
     private ArrayList<Cube> cubes = new ArrayList<>();
     public boolean isFilled = false;
