@@ -61,8 +61,7 @@ public class MainController {
                 return;
             }
             partitionListView.getSelectionModel().clearSelection();
-            ArrayList<Cuboid> cuboids = this.solver.getPartitions().get(selected);
-            openCuboidView(cuboids);
+            openCuboidView(selected);
         });
     }
 
@@ -74,13 +73,21 @@ public class MainController {
         } 
     }
 
-    private void openCuboidView(ArrayList<Cuboid> cuboids) {
+    private void openCuboidView(String partition) {
         try {
+            ArrayList<Cuboid> cuboids = this.solver.getPartitions().get(partition);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/cuboid-view.fxml"));
             Parent view = loader.load();
             Parent mainView = (Parent) rootPane.getChildren().get(0);
             CuboidViewController cuboidViewController = loader.getController();
             cuboidViewController.setCuboids(cuboids);
+
+            int width = Integer.valueOf(widthTextField.getText());
+            int height = Integer.valueOf(heightTextField.getText());
+            int depth = Integer.valueOf(depthTextField.getText());
+
+            cuboidViewController.setContainerSize(width, height, depth);
+            cuboidViewController.setPartitionString(partition);
             cuboidViewController.showCuboid();
             cuboidViewController.setRootPane(rootPane);
             cuboidViewController.setMainView(mainView);

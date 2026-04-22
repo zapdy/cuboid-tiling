@@ -56,6 +56,9 @@
                <children>
                   <Label fx:id="statusLabel">
                      <font><Font size="16.0" /></font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
                   </Label>
                </children>
             </HBox>
