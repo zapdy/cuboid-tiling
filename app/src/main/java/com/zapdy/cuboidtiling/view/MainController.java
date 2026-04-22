@@ -3,16 +3,22 @@ package com.zapdy.cuboidtiling.view;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.zapdy.cuboidtiling.model.Cube;
+import com.zapdy.cuboidtiling.model.Cuboid;
 import com.zapdy.cuboidtiling.model.CuboidTilingSolver;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 
 public class MainController {
+    @FXML
+    private StackPane rootPane;
     @FXML
     private ListView<String> partitionListView;
     @FXML
@@ -23,6 +29,9 @@ public class MainController {
     private TextField heightTextField;
     @FXML
     private TextField depthTextField;
+
+    @FXML
+    private Label statusLabel;
 
     private CuboidTilingSolver solver = new CuboidTilingSolver();
 
@@ -39,19 +48,47 @@ public class MainController {
                     return null;
                 }
             };           
-            task.setOnSucceeded(e -> updatePartitionListView());
+            task.setOnSucceeded(e -> this.updatePartitionListView());
             
-            partitionListView.getItems().clear(); 
+            this.partitionListView.getItems().clear(); 
+            this.statusLabel.setText("Solving...");
             new Thread(task).start();
-            this.solver.solve(width, height, depth);
+        });
+
+        partitionListView.setOnMouseClicked(event -> {
+            String selected = partitionListView.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                return;
+            }
+            partitionListView.getSelectionModel().clearSelection();
+            ArrayList<Cuboid> cuboids = this.solver.getPartitions().get(selected);
+            openCuboidView(cuboids);
         });
     }
+
     private void updatePartitionListView() {
-        for (Map.Entry<String, ArrayList<Cube>> entry : solver.getPartitions().entrySet()) {
+        statusLabel.setText("Count: " + solver.getPartitions().size());
+        for (Map.Entry<String, ArrayList<Cuboid>> entry : solver.getPartitions().entrySet()) {
             String key = entry.getKey();
-            // ArrayList<Cube> cubes = entry.getValue();
             partitionListView.getItems().add(key);
         } 
+    }
+
+    private void openCuboidView(ArrayList<Cuboid> cuboids) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/cuboid-view.fxml"));
+            Parent view = loader.load();
+            Parent mainView = (Parent) rootPane.getChildren().get(0);
+            CuboidViewController cuboidViewController = loader.getController();
+            cuboidViewController.setCuboids(cuboids);
+            cuboidViewController.showCuboid();
+            cuboidViewController.setRootPane(rootPane);
+            cuboidViewController.setMainView(mainView);
+            this.rootPane.getChildren().setAll(view);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

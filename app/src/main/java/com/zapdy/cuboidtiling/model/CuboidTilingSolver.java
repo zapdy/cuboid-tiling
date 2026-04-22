@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CuboidTilingSolver {
-    private Map<String, ArrayList<Cube>> partitions = new HashMap<>();
+    private Map<String, ArrayList<Cuboid>> partitions = new HashMap<>();
     public int counter = 0;
 
     public void solve(int width, int height, int depth) {
@@ -18,35 +18,33 @@ public class CuboidTilingSolver {
     }
 
     private void solve(Container container) {
-        for (int cubeWidth = 1; cubeWidth <= container.width; cubeWidth++) {
-            for (int cubeHeight = 1; cubeHeight <= container.height; cubeHeight++) {
-                for (int cubeDepth = 1; cubeDepth <= container.depth; cubeDepth++) {
-                    // IO.print("Cube: " + cubeWidth + "x" + cubeHeight + "x" + cubeDepth + "\n");
-
-                    Cube cube = new Cube(cubeWidth, cubeHeight, cubeDepth, container.firstEmptyX, container.firstEmptyY, container.firstEmptyZ);
+        for (int cuboidWidth = 1; cuboidWidth <= container.width; cuboidWidth++) {
+            for (int cuboidHeight = 1; cuboidHeight <= container.height; cuboidHeight++) {
+                for (int cuboidDepth = 1; cuboidDepth <= container.depth; cuboidDepth++) {
+                    Cuboid cuboid = new Cuboid(cuboidWidth, cuboidHeight, cuboidDepth, container.firstEmptyX, container.firstEmptyY, container.firstEmptyZ);
                     
-                    if (!container.canFit(cube)) {
+                    if (!container.canFit(cuboid)) {
                         continue;
                     }
                     
-                    container.addCube(cube);
+                    container.addCuboid(cuboid);
                     if (container.isFilled) {
                         counter++;  
                         String partition = Arrays.asList(container.getPartition()).toString();
                         if (!this.partitions.containsKey(partition)) {
-                            ArrayList<Cube> cubes = new ArrayList<>(container.getCubes());
-                            this.partitions.put(partition, cubes);
+                            ArrayList<Cuboid> cuboids = new ArrayList<>(container.getCuboids());
+                            this.partitions.put(partition, cuboids);
                         }
                     } 
                     else {
                         solve(container);
                     }
-                    container.removeCube(cube);
+                    container.removeCuboid(cuboid);
                 }
             }
         }
     }
-    public Map<String, ArrayList<Cube>> getPartitions() {
+    public Map<String, ArrayList<Cuboid>> getPartitions() {
         return this.partitions;
     }
 }

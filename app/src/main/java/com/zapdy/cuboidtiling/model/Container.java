@@ -8,7 +8,7 @@ public class Container {
     public final int height;
     public final int depth;
     private short[][][] map;
-    private ArrayList<Cube> cubes = new ArrayList<>();
+    private ArrayList<Cuboid> cuboids = new ArrayList<>();
     public boolean isFilled = false;
     private int occupiedCells = 0;
     public int firstEmptyX = 0;
@@ -22,55 +22,55 @@ public class Container {
         this.map = new short[width][height][depth]; // auto filled with 0s
     }
 
-    public void addCube(Cube cube) {
-        for (int x = cube.x(); x < cube.x() + cube.width(); x++) {
-            for (int y = cube.y(); y < cube.y() + cube.height(); y++) {
-                for (int z = cube.z(); z < cube.z() + cube.depth(); z++) {
+    public void addCuboid(Cuboid cuboid) {
+        for (int x = cuboid.x(); x < cuboid.x() + cuboid.width(); x++) {
+            for (int y = cuboid.y(); y < cuboid.y() + cuboid.height(); y++) {
+                for (int z = cuboid.z(); z < cuboid.z() + cuboid.depth(); z++) {
                     if (map[x][y][z] == 0) {
                         map[x][y][z] = 1;
                     }
                     else {
-                        throw new RuntimeException("The cube doesn't fit in container");
+                        throw new RuntimeException("The cuboid doesn't fit in container");
                     }
                 }
             }
         }
 
-        cubes.add(cube);
-        occupiedCells += cube.width() * cube.height() * cube.depth();
+        cuboids.add(cuboid);
+        occupiedCells += cuboid.width() * cuboid.height() * cuboid.depth();
         isFilled = occupiedCells == this.width * this.height * this.depth;
         this.findFirstEmptyPosition();
     }
 
-    public void removeCube(Cube cube) {
-        for (int x = cube.x(); x < cube.x() + cube.width(); x++) {
-            for (int y = cube.y(); y < cube.y() + cube.height(); y++) {
-                for (int z = cube.z(); z < cube.z() + cube.depth(); z++) {
+    public void removeCuboid(Cuboid cuboid) {
+        for (int x = cuboid.x(); x < cuboid.x() + cuboid.width(); x++) {
+            for (int y = cuboid.y(); y < cuboid.y() + cuboid.height(); y++) {
+                for (int z = cuboid.z(); z < cuboid.z() + cuboid.depth(); z++) {
                     map[x][y][z] = 0;
                 }
             }
         }
 
-        cubes.remove(cube);
-        occupiedCells -= cube.width() * cube.height() * cube.depth();
+        cuboids.remove(cuboid);
+        occupiedCells -= cuboid.width() * cuboid.height() * cuboid.depth();
         isFilled = false;
         this.findFirstEmptyPosition();
     }
 
-    public boolean canFit(Cube cube) {
-        if (cube.x() + cube.width() > this.width) {
+    public boolean canFit(Cuboid cuboid) {
+        if (cuboid.x() + cuboid.width() > this.width) {
             return false;
         }
-        if (cube.y() + cube.height() > this.height) {
+        if (cuboid.y() + cuboid.height() > this.height) {
             return false;
         }
-        if (cube.z() + cube.depth() > this.depth) {
+        if (cuboid.z() + cuboid.depth() > this.depth) {
             return false;
         }
 
-        for (int x = cube.x(); x < cube.x() + cube.width(); x++) {
-            for (int y = cube.y(); y < cube.y() + cube.height(); y++) {
-                for (int z = cube.z(); z < cube.z() + cube.depth(); z++) {
+        for (int x = cuboid.x(); x < cuboid.x() + cuboid.width(); x++) {
+            for (int y = cuboid.y(); y < cuboid.y() + cuboid.height(); y++) {
+                for (int z = cuboid.z(); z < cuboid.z() + cuboid.depth(); z++) {
                     if (map[x][y][z] == 1) {
                         return false; // collision
                     }
@@ -107,15 +107,15 @@ public class Container {
     }
 
     public String[] getPartition() {
-        String[] partition = new String[this.cubes.size()];
-           for (int i = 0; i < this.cubes.size(); i++) {
-               partition[i] = this.cubes.get(i).toString();
+        String[] partition = new String[this.cuboids.size()];
+           for (int i = 0; i < this.cuboids.size(); i++) {
+               partition[i] = this.cuboids.get(i).toString();
         }
         Arrays.sort(partition);
         return partition;
     }
 
-    public ArrayList<Cube> getCubes() {
-        return cubes;
+    public ArrayList<Cuboid> getCuboids() {
+        return cuboids;
     }
 }

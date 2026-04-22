@@ -1,6 +1,6 @@
 package com.zapdy.cuboidtiling.model;
 
-public record Cube(int width, int height, int depth, int x, int y, int z){
+public record Cuboid(int width, int height, int depth, int x, int y, int z){
     @Override
     public String toString() {
         int min, mid, max;
