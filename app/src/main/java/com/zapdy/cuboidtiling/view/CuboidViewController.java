@@ -39,6 +39,9 @@ public class CuboidViewController {
     private int containerDepth;
 
     @FXML
+    private Label containerSizeLabel;
+
+    @FXML
     private void initialize() {
         cuboidSubScene.setDepthTest(DepthTest.ENABLE);
         cuboidSubScene.widthProperty().bind(((Pane) cuboidSubScene.getParent()).widthProperty());
@@ -59,9 +62,10 @@ public class CuboidViewController {
     public void showCuboid() {
         Group cuboidGroup = new Group();
         partitionLabel.setText(this.partitionString);
+        containerSizeLabel.setText("Container " + this.containerWidth / size + "x" + this.containerHeight / size + "x" + this.containerDepth / size);
         PhongMaterial material = new PhongMaterial(); 
         material.setSelfIlluminationMap(null);
-        material.setDiffuseColor(Color.web("#89CFF0"));
+        material.setDiffuseColor(Color.web("#89CFF0", 0.75));
         material.setSpecularColor(null);
         for (Cuboid cuboid : cuboids) {
             int boxWidth = (cuboid.width() * this.size) - this.inset;
