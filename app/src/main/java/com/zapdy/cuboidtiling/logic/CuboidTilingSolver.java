@@ -1,4 +1,4 @@
-package com.zapdy.cuboidtiling.model;
+package com.zapdy.cuboidtiling.logic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +22,11 @@ public class CuboidTilingSolver {
             for (int cuboidHeight = 1; cuboidHeight <= container.height; cuboidHeight++) {
                 for (int cuboidDepth = 1; cuboidDepth <= container.depth; cuboidDepth++) {
                     Cuboid cuboid = new Cuboid(cuboidWidth, cuboidHeight, cuboidDepth, container.firstEmptyX, container.firstEmptyY, container.firstEmptyZ);
-                    
+
                     if (!container.canFit(cuboid)) {
                         continue;
                     }
-                    
+
                     container.addCuboid(cuboid);
                     if (container.isFilled) {
                         counter++;  

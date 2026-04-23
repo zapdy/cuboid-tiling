@@ -3,8 +3,8 @@ package com.zapdy.cuboidtiling.view;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.zapdy.cuboidtiling.model.Cuboid;
-import com.zapdy.cuboidtiling.model.CuboidTilingSolver;
+import com.zapdy.cuboidtiling.logic.Cuboid;
+import com.zapdy.cuboidtiling.logic.CuboidTilingSolver;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -49,7 +49,7 @@ public class MainController {
                 }
             };           
             task.setOnSucceeded(e -> this.updatePartitionListView());
-            
+
             this.partitionListView.getItems().clear(); 
             this.statusLabel.setText("Solving...");
             new Thread(task).start();

@@ -1,4 +1,4 @@
-package com.zapdy.cuboidtiling.model;
+package com.zapdy.cuboidtiling.logic;
 
 public record Cuboid(int width, int height, int depth, int x, int y, int z){
     @Override

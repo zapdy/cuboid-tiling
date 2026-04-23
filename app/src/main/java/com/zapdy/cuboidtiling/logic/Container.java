@@ -1,4 +1,4 @@
-package com.zapdy.cuboidtiling.model;
+package com.zapdy.cuboidtiling.logic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,8 +108,8 @@ public class Container {
 
     public String[] getPartition() {
         String[] partition = new String[this.cuboids.size()];
-           for (int i = 0; i < this.cuboids.size(); i++) {
-               partition[i] = this.cuboids.get(i).toString();
+        for (int i = 0; i < this.cuboids.size(); i++) {
+            partition[i] = this.cuboids.get(i).toString();
         }
         Arrays.sort(partition);
         return partition;

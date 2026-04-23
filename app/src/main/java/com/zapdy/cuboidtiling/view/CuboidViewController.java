@@ -2,7 +2,7 @@ package com.zapdy.cuboidtiling.view;
 
 import java.util.ArrayList;
 
-import com.zapdy.cuboidtiling.model.Cuboid;
+import com.zapdy.cuboidtiling.logic.Cuboid;
 
 import javafx.fxml.FXML;
 import javafx.scene.DepthTest;
@@ -26,17 +26,17 @@ public class CuboidViewController {
     private int size = 200;
     private int inset = 10;
     private StackPane rootPane;
-    Parent mainView;
-    String partitionString;
+    private Parent mainView;
+    private String partitionString;
     @FXML
     private Button backButton;
     @FXML
     private Label partitionLabel;
     @FXML
     private SubScene cuboidSubScene;
-	private int containerWidth;
-	private int containerHeight;
-	private int containerDepth;
+    private int containerWidth;
+    private int containerHeight;
+    private int containerDepth;
 
     @FXML
     private void initialize() {
@@ -52,9 +52,9 @@ public class CuboidViewController {
         this.mainView = view; 
     }
 
-	public void setCuboids(ArrayList<Cuboid> cuboids) {
+    public void setCuboids(ArrayList<Cuboid> cuboids) {
         this.cuboids = cuboids;
-	}
+    }
 
     public void showCuboid() {
         Group cuboidGroup = new Group();
@@ -119,14 +119,14 @@ public class CuboidViewController {
         });
     }
 
-	public void setContainerSize(int width, int height, int depth) {
+    public void setContainerSize(int width, int height, int depth) {
         this.containerWidth = width * size;
         this.containerHeight = height * size;
         this.containerDepth = depth * size;
-	}
+    }
 
-	public void setPartitionString(String partition) {
+    public void setPartitionString(String partition) {
         this.partitionString = partition;
-	}
+    }
 }
 
